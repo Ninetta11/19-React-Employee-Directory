@@ -10,6 +10,7 @@ class Directory extends Component {
     state = {
         result: [],
         search: "",
+        isAscending: true
     };
 
     // At app initialisation, displays 20 employees
@@ -21,7 +22,7 @@ class Directory extends Component {
     searchEmployee = (query) => {
         API.search(query)
             .then(res => this.setState({ result: res.results }))
-            .catch(err => console.log(err));
+            .catch(err => alert(`Employees have failed to load. Please refesh page`));
     }
 
     // sets search characters based on user input
@@ -34,13 +35,46 @@ class Directory extends Component {
         });
     }
 
-    // sorts employee list
-    sortEmployeeList = () => {
-        let sorted = this.state.result.sort((a, b) => (a.name.first - b.name.first) ? 1 : -1);
 
-        this.setState({
-            result: sorted
-        })
+    // sorts employee list by first name 
+    sortEmployeeList = (event) => {
+        let sortBy = event.target.name.split('.');
+
+        switch (sortBy.length) {
+            case 1:
+                if (this.state.isAscending) {
+                    this.setState({
+                        result: this.state.result.sort((a, b) => (a[sortBy[0]] > b[sortBy[0]]) ? 1 : -1),
+                        isAscending: false
+                    });
+                }
+                else {
+                    this.setState({
+                        result: this.state.result.sort((a, b) => (a[sortBy[0]] > b[sortBy[0]]) ? -1 : 1),
+                        isAscending: true
+                    });
+                }
+                break;
+            case 2:
+                if (this.state.isAscending) {
+                    this.setState({
+                        result: this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? 1 : -1),
+                        isAscending: false
+                    });
+                }
+                else {
+                    this.setState({
+                        result: this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? -1 : 1),
+                        isAscending: true
+                    });
+                }
+                break;
+        }
+
+        // this.setState({
+        //     result: this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? 1 : -1),
+        //     isAscending: false
+        // });
     }
 
     // filters employees based on set search characters
