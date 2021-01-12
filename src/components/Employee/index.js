@@ -1,9 +1,16 @@
+import "./style.css";
+
 function Employee(props) {
     return (
-        <li className="list-group-item" data={props.id}>
-            <img alt={props.firstName} className="img-fluid" src={props.src} style={{ margin: "0 auto" }} />
-            <h3>{props.firstName} {props.lastName}   {props.phone}   {props.email}  {props.location}</h3>
-        </li>
+        <tr data={props.id}>
+            <td>
+                <img alt={props.lastName} className="img-fluid" src={props.src} style={{ margin: "0 auto" }} />
+            </td>
+            <td>{props.firstName} {props.lastName}</td>
+            <td>{props.phone}</td>
+            <td><a className="nav-link" href={props.email}>{props.email}</a></td>
+            <td>{props.location}</td>
+        </tr>
     );
 }
 

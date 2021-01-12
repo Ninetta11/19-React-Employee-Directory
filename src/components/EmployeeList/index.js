@@ -1,6 +1,6 @@
 function EmployeeList(props) {
     return (
-        <ul className="list-group">{props.children}</ul>
+        <table className="table">{props.children}</table>
     );
 }
 

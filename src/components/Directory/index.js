@@ -3,59 +3,71 @@ import Employee from "../Employee";
 import EmployeeList from "../EmployeeList";
 import SearchForm from "../SearchForm";
 import Title from "../Title";
-import search from "../../utils/API";
+import API from "../../utils/API";
 
 class Directory extends Component {
 
     state = {
         result: [],
-        search: ""
+        search: "",
     };
 
-    // At app initialisation, display 50 employees
+    // At app initialisation, displays 20 employees
     componentDidMount() {
         this.searchEmployee('20');
     }
 
     // API search
     searchEmployee = (query) => {
-        search(query)
+        API.search(query)
             .then(res => this.setState({ result: res.results }))
             .catch(err => console.log(err));
     }
 
-    // filter employee results based on characters inputted in search field
+    // sets search characters based on user input
     handleInputChange = event => {
         const value = event.target.value;
         const name = event.target.name;
-        this.setState({
-            [name]: value
-        });
-        console.log(this.state);
 
-        //filter method here
-    };
+        this.setState({
+            [name]: value,
+        });
+    }
 
     render() {
+        // filters employees based on set search characters
+        let employees = '';
+        if (!this.state.search) {
+            employees = this.state.result;
+        }
+        else {
+            employees = this.state.result.filter(
+                (employee) => employee.name.first.toLowerCase().includes(this.state.search) || employee.name.last.toLowerCase().includes(this.state.search));
+        };
+
+        // renders employee list
         return (
             <div>
                 <SearchForm
                     value={this.state.search}
                     handleInputChange={this.handleInputChange}
                 />
+                <br></br>
                 <EmployeeList>
                     <Title></Title>
-                    {this.state.result.map((employee, index) => (
-                        <Employee
-                            id={index}
-                            firstName={employee.name.first}
-                            lastName={employee.name.last}
-                            src={employee.picture.thumbnail}
-                            phone={employee.phone}
-                            email={employee.email}
-                            location={employee.location.state}
-                        />
-                    ))}
+                    <tbody>
+                        {employees.map((employee, index) => (
+                            <Employee
+                                id={index}
+                                firstName={employee.name.first}
+                                lastName={employee.name.last}
+                                src={employee.picture.thumbnail}
+                                phone={employee.phone}
+                                email={employee.email}
+                                location={employee.location.state}
+                            />
+                        ))}
+                    </tbody>
                 </EmployeeList>
             </div>
         );

@@ -1,15 +1,18 @@
 function SearchForm(props) {
     return (
-        <form>
-            <input
-                onChange={props.handleInputChange}
-                value={props.value}
-                name="search"
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                id="search"
-            />
+        <form className="form-row">
+            <div className="col-4"></div>
+            <div className="col-4">
+                <input
+                    onChange={props.handleInputChange}
+                    value={props.value}
+                    name="search"
+                    type="text"
+                    className="form-control"
+                    placeholder="Search"
+                    id="search"
+                />
+            </div>
         </form>
     );
 }
