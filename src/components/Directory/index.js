@@ -34,18 +34,28 @@ class Directory extends Component {
         });
     }
 
-    render() {
-        // filters employees based on set search characters
-        let employees = '';
+    // sorts employee list
+    sortEmployeeList = () => {
+        let sorted = this.state.result.sort((a, b) => (a.name.first - b.name.first) ? 1 : -1);
+
+        this.setState({
+            result: sorted
+        })
+    }
+
+    // filters employees based on set search characters
+    filterEmployeeList = () => {
         if (!this.state.search) {
-            employees = this.state.result;
+            return this.state.result;
         }
         else {
-            employees = this.state.result.filter(
+            return this.state.result.filter(
                 (employee) => employee.name.first.toLowerCase().includes(this.state.search) || employee.name.last.toLowerCase().includes(this.state.search));
         };
+    }
 
-        // renders employee list
+    // renders employee list
+    render() {
         return (
             <div>
                 <SearchForm
@@ -54,9 +64,11 @@ class Directory extends Component {
                 />
                 <br></br>
                 <EmployeeList>
-                    <Title></Title>
+                    <Title
+                        sort={this.sortEmployeeList}
+                    ></Title>
                     <tbody>
-                        {employees.map((employee, index) => (
+                        {this.filterEmployeeList().map((employee, index) => (
                             <Employee
                                 id={index}
                                 firstName={employee.name.first}
