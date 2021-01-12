@@ -2,24 +2,25 @@ import React, { Component } from "react";
 import Employee from "../Employee";
 import EmployeeList from "../EmployeeList";
 import SearchForm from "../SearchForm";
-import API from "../../utils/API";
+import Title from "../Title";
+import search from "../../utils/API";
 
 class Directory extends Component {
 
     state = {
-        result: {},
+        result: [],
         search: ""
     };
 
     // At app initialisation, display 50 employees
     componentDidMount() {
-        this.searchEmployee('50');
+        this.searchEmployee('20');
     }
 
     // API search
-    searchEmployee = query => {
-        API.search(query)
-            .then(res => this.setState({ result: res.data }))
+    searchEmployee = (query) => {
+        search(query)
+            .then(res => this.setState({ result: res.results }))
             .catch(err => console.log(err));
     }
 
@@ -30,9 +31,9 @@ class Directory extends Component {
         this.setState({
             [name]: value
         });
+        console.log(this.state);
 
-        // filter method here
-
+        //filter method here
     };
 
     render() {
@@ -43,14 +44,18 @@ class Directory extends Component {
                     handleInputChange={this.handleInputChange}
                 />
                 <EmployeeList>
-                    <Employee
-                        firstName={this.state.result.name.first}
-                        lastName={this.state.result.name.last}
-                        src={this.state.result.picture.thumbnail}
-                        phone={this.state.result.phone}
-                        email={this.state.result.email}
-                        location={this.state.result.state}
-                    />
+                    <Title></Title>
+                    {this.state.result.map((employee, index) => (
+                        <Employee
+                            id={index}
+                            firstName={employee.name.first}
+                            lastName={employee.name.last}
+                            src={employee.picture.thumbnail}
+                            phone={employee.phone}
+                            email={employee.email}
+                            location={employee.location.state}
+                        />
+                    ))}
                 </EmployeeList>
             </div>
         );

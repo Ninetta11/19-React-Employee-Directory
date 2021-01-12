@@ -1,9 +1,16 @@
-import axios from "axios";
-const URL = "https://randomuser.me/api/?results=";
+import $ from 'jquery';
+const URL = 'https://randomuser.me/api/?results=';
 
-export default {
-    search: function (query) {
-        return axios.get(URL + query);
-    }
-};
+function search(query) {
+    return (
+        $.ajax({
+            url: URL + query,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
+        }))
+}
+
+export default search;
 
