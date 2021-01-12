@@ -9,7 +9,7 @@ function SearchForm(props) {
                     name="search"
                     type="text"
                     className="form-control"
-                    placeholder="Search"
+                    placeholder="Search By Name"
                     id="search"
                 />
             </div>

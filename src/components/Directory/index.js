@@ -35,46 +35,39 @@ class Directory extends Component {
         });
     }
 
-
-    // sorts employee list by first name 
+    // sorts employee list by event
     sortEmployeeList = (event) => {
-        let sortBy = event.target.name.split('.');
+        let sortBy = event.target.name.split(' ');
+        let useMethod = "";
+        let useCondition = "";
 
         switch (sortBy.length) {
             case 1:
                 if (this.state.isAscending) {
-                    this.setState({
-                        result: this.state.result.sort((a, b) => (a[sortBy[0]] > b[sortBy[0]]) ? 1 : -1),
-                        isAscending: false
-                    });
+                    useMethod = this.state.result.sort((a, b) => (a[sortBy[0]] > b[sortBy[0]]) ? 1 : -1);
+                    useCondition = false
                 }
                 else {
-                    this.setState({
-                        result: this.state.result.sort((a, b) => (a[sortBy[0]] > b[sortBy[0]]) ? -1 : 1),
-                        isAscending: true
-                    });
+                    useMethod = this.state.result.sort((a, b) => (a[sortBy[0]] > b[sortBy[0]]) ? -1 : 1);
+                    useCondition = true
                 }
                 break;
             case 2:
                 if (this.state.isAscending) {
-                    this.setState({
-                        result: this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? 1 : -1),
-                        isAscending: false
-                    });
+                    useMethod = this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? 1 : -1);
+                    useCondition = false
                 }
                 else {
-                    this.setState({
-                        result: this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? -1 : 1),
-                        isAscending: true
-                    });
+                    useMethod = this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? -1 : 1);
+                    useCondition = true
                 }
                 break;
         }
 
-        // this.setState({
-        //     result: this.state.result.sort((a, b) => (a[sortBy[0]][sortBy[1]] > b[sortBy[0]][sortBy[1]]) ? 1 : -1),
-        //     isAscending: false
-        // });
+        this.setState({
+            result: useMethod,
+            isAscending: useCondition
+        });
     }
 
     // filters employees based on set search characters
