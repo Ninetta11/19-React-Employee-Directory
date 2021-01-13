@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/Employee/style.css"],"names":[],"mappings":"AAAA,iBACI,wBACJ","file":"main.1a379a76.chunk.css","sourcesContent":["tr:nth-child(even) {\n    background-color: #f9f9f9;\n}"]}
