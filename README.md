@@ -23,7 +23,7 @@
   npm i
 
   ## Usage
-  The application is deployed on GitHub pages at 
+  The application is deployed on GitHub pages [here](https://ninetta11.github.io/19-React-Employee-Directory/).
 
   ## License 
   This project is licensed under the APACHE license.
