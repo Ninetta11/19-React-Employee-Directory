@@ -16,7 +16,7 @@
   Employee Directory created with React. Allows users to sort and filter employee results quickly and easily.  
 
   ## Demonstration
-  
+  ![demonstration](https://user-images.githubusercontent.com/65838273/104401905-3e6b8580-55a9-11eb-8379-8bc959f72f51.gif)
   
   ## Installation
   To install the necessary dependencies, run the following command:
